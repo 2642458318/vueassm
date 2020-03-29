@@ -19,8 +19,23 @@
                 </el-dropdown>
             </el-header>
             <el-container>
-                <el-aside width="200px">Aside</el-aside>
-                <el-main>Main</el-main>
+                <el-aside width="200px">
+                    <el-menu @select='menuClick'>
+                        <el-submenu index="1" v-for="(item,index) in this.$router.options.routes" v-if="!item.hidden"
+                                    :key="index">
+                            <template slot="title">
+                                <i class="el-icon-location"></i>
+                                <span>{{item.name}}</span>
+                            </template>
+                            <el-menu-item :index="child.path" v-for="(child,indexj) in item.children" :key="indexj">
+                                {{child.name}}
+                            </el-menu-item>
+                        </el-submenu>
+                    </el-menu>
+                </el-aside>
+                <el-main>
+                    <router-view/>
+                </el-main>
             </el-container>
         </el-container>
     </div>
@@ -34,9 +49,12 @@
                 user: JSON.parse(window.sessionStorage.getItem('user'))
             }
         },
-        methods:{
-            commandHandler(cmd){
-                if (cmd=='logout'){
+        methods: {
+            menuClick(index) {
+                this.$router.push(index);
+            },
+            commandHandler(cmd) {
+                if (cmd == 'logout') {
                     this.$confirm('此操作将注销登录, 是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
@@ -82,12 +100,12 @@
         color: aliceblue;
     }
 
-    .userInfo{
+    .userInfo {
         /*箭头变成手指*/
         cursor: pointer;
     }
 
-    .el-dropdown-link img{
+    .el-dropdown-link img {
         width: 48px;
         height: 48px;
         /*把图片变成圆的*/
@@ -95,7 +113,7 @@
         margin-left: 8px;
     }
 
-    .el-dropdown-link{
+    .el-dropdown-link {
         /*垂直居中*/
         display: flex;
         align-items: center;
