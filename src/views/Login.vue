@@ -16,6 +16,9 @@
 </template>
 
 <script>
+
+    import {postKeyValueRequest} from "../utils/api";
+
     export default {
         name: "Login",
         data() {
@@ -36,7 +39,20 @@
             submitLogin() {
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        //alert('submit!');
+                        /**
+                         * then里面的参数就是服务端返回的参数，参数在response已经被二次处理一次
+                         */
+                        postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
+                            if (resp) {
+                                //把用户信息保存在sessionStorage，sessionStorage打开页面再关掉就没了
+                                window.sessionStorage.setItem('user', JSON.stringify(resp.obj));
+                                //页面跳转,获取当前对象的router对象,replace替换页面
+                                this.$router.replace('/home');
+                                //如果成功，打印一下
+                                alert(JSON.stringify(resp))
+                            }
+                        })
                     } else {
                         //console.log('error submit!!');
                         this.$message.error('请输入所有信息');
