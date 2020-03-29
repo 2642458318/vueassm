@@ -15,6 +15,12 @@ axios.interceptors.response.use(success => {
          */
         return;
     }
+    /***
+     * 如果前端返回msg就提示一下，不返回就不提示
+     */
+    if (success.data.msg){
+        Message.success({message:success.data.msg})
+    }
     /**
      * 成功返回数据，
      */
@@ -67,5 +73,57 @@ export const postKeyValueRequest = (url, params) => {
         header: {
             'Content-Type': 'application/x-www-form-urlencoded'
         }
+    })
+}
+/***
+ * 请求方式：post
+ * @param url
+ * @param params
+ * @returns {AxiosPromise}
+ */
+export const postRequest = (url, params) => {
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params
+    })
+}
+/***
+ * 请求方式：put
+ * @param url
+ * @param params
+ * @returns {AxiosPromise}
+ */
+export const putRequest = (url, params) => {
+    return axios({
+        method: 'put',
+        url: `${base}${url}`,
+        data: params
+    })
+}
+/***
+ * 请求方式：get
+ * @param url
+ * @param params
+ * @returns {AxiosPromise}
+ */
+export const getRequest = (url, params) => {
+    return axios({
+        method: 'get',
+        url: `${base}${url}`,
+        data: params
+    })
+}
+/***
+ * 请求方式：delete
+ * @param url
+ * @param params
+ * @returns {AxiosPromise}
+ */
+export const deleteRequest = (url, params) => {
+    return axios({
+        method: 'delete',
+        url: `${base}${url}`,
+        data: params
     })
 }

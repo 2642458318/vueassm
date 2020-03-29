@@ -17,7 +17,7 @@
 
 <script>
 
-    import {postKeyValueRequest} from "../utils/api";
+    //import {postKeyValueRequest} from "../utils/api";
 
     export default {
         name: "Login",
@@ -43,7 +43,7 @@
                         /**
                          * then里面的参数就是服务端返回的参数，参数在response已经被二次处理一次
                          */
-                        postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
+                        this.postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
                             if (resp) {
                                 //把用户信息保存在sessionStorage，sessionStorage打开页面再关掉就没了
                                 window.sessionStorage.setItem('user', JSON.stringify(resp.obj));
