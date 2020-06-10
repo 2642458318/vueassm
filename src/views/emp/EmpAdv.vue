@@ -1,12 +1,12 @@
 <template>
     <div>
-        test2
+        高级资料
     </div>
 </template>
 
 <script>
     export default {
-        name: "Test2"
+        name: "EmpAdv"
     }
 </script>
 

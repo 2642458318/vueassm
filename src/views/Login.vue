@@ -6,7 +6,7 @@
                 <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-                <el-input type="text" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码"></el-input>
+                <el-input type="text" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码" @keydown.enter.native="submitLogin"></el-input>
             </el-form-item>
             <!--是否记住密码-->
             <el-checkbox v-model="checked" class="loginRemember"></el-checkbox>
@@ -24,11 +24,13 @@
         data() {
             return {
                 loginForm: {
+                    /*定义用户名密码*/
                     username: 'admin',
                     password: '123'
                 },
                 checked: true,
                 rules: {
+                    /*定制规则*/
                     username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
                     password: [{required: true, message: '请输入密码', trigger: 'blur'}]
                 },
@@ -48,13 +50,14 @@
                                 //把用户信息保存在sessionStorage，sessionStorage打开页面再关掉就没了
                                 window.sessionStorage.setItem('user', JSON.stringify(resp.obj));
                                 //页面跳转,获取当前对象的router对象,replace替换页面
-                                this.$router.replace('/home');
+                                this.$router.replace('/home')
                                 //如果成功，打印一下
-                                alert(JSON.stringify(resp))
+                                /*alert(JSON.stringify(resp))*/
                             }
                         })
                     } else {
                         //console.log('error submit!!');
+                        /*弹出错误框*/
                         this.$message.error('请输入所有信息');
                         return false;
                     }
