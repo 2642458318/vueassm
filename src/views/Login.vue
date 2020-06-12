@@ -6,7 +6,8 @@
                 <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-                <el-input type="text" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码" @keydown.enter.native="submitLogin"></el-input>
+                <el-input type="text" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码"
+                          @keydown.enter.native="submitLogin"></el-input>
             </el-form-item>
             <!--是否记住密码-->
             <el-checkbox v-model="checked" class="loginRemember"></el-checkbox>
@@ -49,8 +50,10 @@
                             if (resp) {
                                 //把用户信息保存在sessionStorage，sessionStorage打开页面再关掉就没了
                                 window.sessionStorage.setItem('user', JSON.stringify(resp.obj));
+                                let path = this.$route.query.redirect;
+                                console.log(path);
                                 //页面跳转,获取当前对象的router对象,replace替换页面
-                                this.$router.replace('/home')
+                                this.$router.replace((path == '/' || path == undefined) ? '/home' : path);
                                 //如果成功，打印一下
                                 /*alert(JSON.stringify(resp))*/
                             }

@@ -44,7 +44,7 @@
                     <div class="homeWelcome" v-if="this.$router.currentRoute.path=='/home'">
                         欢迎来到花果山！
                     </div>
-                    <router-view/>
+                    <router-view class="homeRouterView"/>
                 </el-main>
             </el-container>
         </el-container>
@@ -106,6 +106,10 @@
 </script>
 
 <style>
+    .homeRouterView {
+        margin-top: 10px;
+    }
+
     .homeWelcome {
         text-align: center;
         font-size: 30px;
