@@ -37,15 +37,26 @@
                         label="创建时间"
                         width="">
                 </el-table-column>
+                <el-table-column
+                        prop="enabled"
+                        label="是否启用"
+
+                >
+                    <!--scope相当于一行的数据， scope.row相当于当前行的数据对象-->
+                    <template slot-scope="scope">
+                        <el-tag type="success" v-if="scope.row.enabled">已启用</el-tag>
+                        <el-tag type="danger" v-else>未启用</el-tag>
+                    </template>
+                </el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
                         <!--scope.$index 当前操作的第几行 scope.row 当前对应的那个json 每一行的json对象-->
                         <el-button
-                                size="mini"
+                                size="small"
                                 @click="showEditView(scope.$index, scope.row)">编辑
                         </el-button>
                         <el-button
-                                size="mini"
+                                size="small"
                                 type="danger"
                                 @click="handleDelete(scope.$index, scope.row)">删除
                         </el-button>
@@ -59,8 +70,18 @@
                 width="30%"
         >
             <div>
-                <el-tag>职位名称</el-tag>
-                <el-input class="updatePosInput" size="small" v-model="updatePos.name"></el-input>
+                <div>
+                    <el-tag>职位名称</el-tag>
+                    <el-input class="updatePosInput" size="small" v-model="updatePos.name"></el-input>
+                </div>
+                <div>
+                    <el-tag>是否启用</el-tag>
+                    <el-switch
+                            v-model="updatePos.enabled"
+                            active-text="启用"
+                            inactive-text="禁用">
+                    </el-switch>
+                </div>
             </div>
             <span slot="footer" class="dialog-footer">
     <el-button size="small" @click="dialogVisible = false">取 消</el-button>
@@ -75,14 +96,15 @@
 
 <script>
     export default {
-        name: "DepMana",
+        name: "PosMana",
         data() {
             return {
                 pos: {
                     name: ''
                 },
                 updatePos: {
-                    name: ''
+                    name: '',
+                    enabled:false
                 },
                 dialogVisible: false,
                 /*后端传来的数据*/
