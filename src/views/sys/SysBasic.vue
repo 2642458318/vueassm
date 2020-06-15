@@ -21,7 +21,7 @@
         data(){
             return{
                 //设置先打开哪个标签
-                activeName:'permissMana'
+                activeName:'depMana'
             }
         },
         components:{

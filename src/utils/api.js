@@ -2,6 +2,7 @@
 import axios from 'axios'
 //element ui 全局消息提示（单独引入message调用message方法）
 import {Message} from 'element-ui';
+import router from "../router";
 
 /**
  * 响应拦截器
@@ -36,7 +37,8 @@ axios.interceptors.response.use(success => {
     } else if (error.response.status == 403) {
         Message.error({message: "权限不足，请联系管理员"})
     } else if (error.response.status == 401) {
-        Message.error({message: "尚未登录，请登录"})
+        Message.error({message: "尚未登录，请登录"});
+        router.replace("/")
     } else {
         //显示服务端返回的错误信息
         if (error.response.data.msg()) {
